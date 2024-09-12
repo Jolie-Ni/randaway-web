@@ -13,9 +13,48 @@ import * as functions from "firebase-functions";
 import * as express from "express";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
+import * as AWS from "aws-sdk";
+
+// Configure AWS SDK for DynamoDB
+AWS.config.update({
+  region: "us-east-1", // Replace with your AWS region
+  accessKeyId: functions.config().aws.access_key_id,
+  secretAccessKey: functions.config().aws.secret_access_key,
+});
 
 // Create an Express app
 const app = express();
+
+const dynamoDB = new AWS.DynamoDB.DocumentClient();
+
+// Function to fetch data from DynamoDB
+const getLocations = async () => {
+  const params = {
+    TableName: "instagram_message",
+    ProjectionExpression: "#n, address", // Use a placeholder for 'name'
+    ExpressionAttributeNames: {
+      "#n": "name", // Map the placeholder to the actual attribute 'name'
+    },
+  };
+
+  try {
+    const data = await dynamoDB.scan(params).promise();
+    return data.Items; // Return the items fetched from the table
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error fetching data from DynamoDB:", error.message);
+      throw new Error(`Could not fetch data from DynamoDB: ${error.message}`);
+    } else {
+      // If it's not an instance of Error, log the entire error object
+      console.error(
+        "Unknown error fetching data from DynamoDB:",
+        JSON.stringify(error));
+      throw new Error(
+        "Could not fetch data from DynamoDB due to an unknown error."
+      );
+    }
+  }
+};
 
 // Use CORS middleware to allow cross-origin requests
 app.use(cors({origin: true}));
@@ -30,8 +69,21 @@ app.use((req, res, next) => {
 });
 
 // Define routes for the Express app
-app.get("/hello", (req, res) => {
-  res.json({message: "Hello from Jolie firebase function!"});
+app.get("/locations", async (req, res) => {
+  try {
+    const result = await getLocations();
+    res.json(result);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({message: error.message});
+    } else {
+      res.status(500).json({message: "An unknown error occurred"});
+    }
+  }
+});
+
+app.get("/message", (req, res) => {
+  res.json({message: "Hello from nn's firebase function!"});
 });
 
 // Export the Express app as a Firebase Cloud Function

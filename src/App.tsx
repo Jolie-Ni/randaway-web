@@ -1,11 +1,11 @@
 import './App.css';
-import MessageComponent from './components/MessageComponent';
+import LocationList from './components/LocationList';
 
 function App() {
 
   return (
     <div className="App">
-      <MessageComponent/>
+      <LocationList/>
     </div>
   );
 }
