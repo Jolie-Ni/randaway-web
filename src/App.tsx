@@ -1,12 +1,15 @@
 import './App.css';
-import LocationList from './components/LocationList';
+import GoogleMapBox from './components/GoogleMapBox';
+import RandawayAppProvider from './components/RandawayAppProvider';
 
 function App() {
 
   return (
-    <div className="App">
-      <LocationList/>
-    </div>
+    // <div className="App">
+    //   <LocationList/>
+    // </div>
+
+    <RandawayAppProvider />
   );
 }
 
