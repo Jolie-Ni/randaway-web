@@ -30,7 +30,7 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 // Function to fetch data from DynamoDB
 const getLocations = async () => {
   const params = {
-    TableName: "instagram_message",
+    TableName: "instagram_locations",
     ProjectionExpression: "#n, address", // Use a placeholder for 'name'
     ExpressionAttributeNames: {
       "#n": "name", // Map the placeholder to the actual attribute 'name'
