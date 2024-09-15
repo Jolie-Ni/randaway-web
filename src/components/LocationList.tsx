@@ -5,8 +5,8 @@ import { useFetch } from '../hooks/useFetch';
 const GET_LOCATION_ENDPOINT = "https://us-central1-randaway-web-97767.cloudfunctions.net/api/locations"
 
 interface Location {
-    name: string,
-    address: string
+    businessName: string,
+    businessAddress: string
 }
 
 
@@ -33,7 +33,7 @@ const LocationList: React.FC = () => {
         {data?.map((item: Location, index: number) => (
           <ListItem key={index}>
             <ListItemButton>
-              <ListItemText primary={item.name} />
+              <ListItemText primary={item.businessName} />
             </ListItemButton>
           </ListItem>
         ))}
