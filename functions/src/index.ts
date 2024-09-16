@@ -31,7 +31,11 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 const getLocations = async () => {
   const params = {
     TableName: "instagram_locations",
-    ProjectionExpression: "businessName, businessAddress",
+    ProjectionExpression: "businessName, businessAddress, businessLocation",
+    FilterExpression: "isValid = :isValid",
+    ExpressionAttributeValues: {
+      ":isValid": true,
+    },
   };
 
   try {
