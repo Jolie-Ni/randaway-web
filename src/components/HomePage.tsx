@@ -61,3 +61,15 @@ const HomePage = () => {
 
 export default HomePage;
 
+
+// improvements:
+// UI: make map occupy the whole window
+// make list go to the right, staying on top of map
+// make markers clickable
+// - click on markers, address bar goes bold
+// make address bar clickable
+// - click on address bar, marker goes bold
+// add delete button
+// - delete icon on address bar
+// - backend function to soft delete a marker
+
