@@ -39,22 +39,7 @@ const HomePage = () => {
 
     return (
         <Paper sx={{ width: '100%' }}>
-            <PageContainer>
-                <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={3}>
-                        <Grid size="grow">
-                            <Item>
-                                <LocationList data={data}/>
-                            </Item>
-                        </Grid>
-                        <Grid size={6}>
-                            <Item>
-                                <GoogleMapBox data={data}/>
-                            </Item>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </PageContainer>
+            <GoogleMapBox data={data}/>
         </Paper>
     );
 }
@@ -64,6 +49,14 @@ export default HomePage;
 
 // improvements:
 // UI: make map occupy the whole window
+// make default view point customized
+// make initial zoom to a proper position
+// bound: 
+// - calculate view point
+// - calculate zoom level
+
+
+
 // make list go to the right, staying on top of map
 // make markers clickable
 // - click on markers, address bar goes bold
