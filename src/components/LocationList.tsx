@@ -1,6 +1,8 @@
 import React from 'react';
 import { List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { useFetch } from '../hooks/useFetch';
+import { LocationListProps } from '../types';
+import { Location } from '../types';
 
 
 const LocationList: React.FC<LocationListProps>= ({ data }) => {

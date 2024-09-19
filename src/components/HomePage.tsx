@@ -1,11 +1,8 @@
 import Paper from '@mui/material/Paper';
-import { PageContainer } from '@toolpad/core/PageContainer';
-import Grid from '@mui/material/Grid2';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import LocationList from './LocationList';
 import GoogleMapBox from './GoogleMapBox';
 import { useFetch } from '../hooks/useFetch';
+import { Location } from '../types';
 
 const HomePage = () => {
 

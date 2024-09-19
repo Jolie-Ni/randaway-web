@@ -1,9 +1,10 @@
 import {AdvancedMarker, APIProvider, Map, MapCameraChangedEvent, Pin, useMap} from '@vis.gl/react-google-maps';
 
-import React, {useEffect, useState, useRef, useCallback} from 'react';
-import {createRoot} from "react-dom/client";
+import React, {useEffect, useState, useRef} from 'react';
   import {MarkerClusterer} from '@googlemaps/markerclusterer';
   import type {Marker} from '@googlemaps/markerclusterer';
+import { LocationListProps } from '../types';
+import { Location } from '../types';
 
 const GoogleMapBox: React.FC<LocationListProps> = ( {data} )  => {
 
