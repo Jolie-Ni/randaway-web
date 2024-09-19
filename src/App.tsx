@@ -1,5 +1,4 @@
 import './App.css';
-import GoogleMapBox from './components/GoogleMapBox';
 import RandawayAppProvider from './components/RandawayAppProvider';
 
 function App() {

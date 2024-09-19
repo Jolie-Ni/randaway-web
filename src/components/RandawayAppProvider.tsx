@@ -1,4 +1,3 @@
-import { AppProvider } from '@toolpad/core/AppProvider';
 import HomePage from './HomePage';
 
 

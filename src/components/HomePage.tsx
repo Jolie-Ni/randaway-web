@@ -1,5 +1,4 @@
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import GoogleMapBox from './GoogleMapBox';
 import { useFetch } from '../hooks/useFetch';
 import { Location } from '../types';
@@ -18,16 +17,16 @@ const HomePage = () => {
       return <div>Error: {error}</div>;
     }
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-        ...theme.applyStyles('dark', {
-          backgroundColor: '#1A2027',
-        }),
-      }));
+    // const Item = styled(Paper)(({ theme }) => ({
+    //     backgroundColor: '#fff',
+    //     ...theme.typography.body2,
+    //     padding: theme.spacing(1),
+    //     textAlign: 'center',
+    //     color: theme.palette.text.secondary,
+    //     ...theme.applyStyles('dark', {
+    //       backgroundColor: '#1A2027',
+    //     }),
+    //   }));
 
     if (data == null) {
         return <div>Enable to fetch data. Try again</div>
