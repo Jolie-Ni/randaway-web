@@ -44,6 +44,7 @@ export default HomePage;
 
 
 // improvements:
+// fix codebase lint and indentation
 // UI: make map occupy the whole window
 // make default view point customized
 // make initial zoom to a proper position
