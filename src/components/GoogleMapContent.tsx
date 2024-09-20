@@ -37,12 +37,12 @@ const GoogleMapContent: React.FC<LocationListProps>= ({data}) => {
     const fitMapToBounds = (data: Location[]) => {
       const markers = data.map((location, index) => ({
         key: index,
-        position: { lat: location.businessLocation.lat, lng: location.businessLocation.lng },
+        position: { lat: location.businessLocation.lat, lng: location.businessLocation.lng},
       }));
       if (markers.length > 0 && map) {
         const bounds = new window.google.maps.LatLngBounds();
         markers.forEach((marker) => bounds.extend(marker.position));
-        map.fitBounds(bounds);
+        map.fitBounds(bounds, 250);
         if(markers.length === 1){
           map.setZoom(ZOOM_LEVEL_FOR_SINGLE_MARKER);
         }
