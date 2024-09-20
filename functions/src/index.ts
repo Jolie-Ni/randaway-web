@@ -15,11 +15,21 @@ import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import * as AWS from "aws-sdk";
 
+const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
+
+if (isEmulator) {
+  // Load .env file for local development
+  import('dotenv').then((dotenv) => dotenv.config());
+}
+
+const aws_access_key_id: string | undefined = isEmulator ? process.env.AWS_ACCESS_KEY_ID : functions.config().aws?.access_key_id;
+const aws_secret_access_key : string | undefined = isEmulator ? process.env.AWS_SECRET_ACCESS_KEY : functions.config().aws?.secret_access_key;
+
 // Configure AWS SDK for DynamoDB
 AWS.config.update({
   region: "us-east-1", // Replace with your AWS region
-  accessKeyId: functions.config().aws.access_key_id,
-  secretAccessKey: functions.config().aws.secret_access_key,
+  accessKeyId: aws_access_key_id,
+  secretAccessKey: aws_secret_access_key,
 });
 
 // Create an Express app
