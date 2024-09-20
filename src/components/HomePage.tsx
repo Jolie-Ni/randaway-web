@@ -44,13 +44,14 @@ export default HomePage;
 
 
 // improvements:
-// fix codebase lint and indentation
-// UI: make map occupy the whole window
-// make default view point customized
-// make initial zoom to a proper position
+// fix codebase lint and indentation 
+// UI: make map occupy the whole window(done)
+// UI: restrict zone out
+// make default view point customized(done)
+// make initial zoom to a proper position(done)
 // bound: 
-// - calculate view point
-// - calculate zoom level
+// - calculate view point(done)
+// - calculate zoom level(done)
 
 
 
