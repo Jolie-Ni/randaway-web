@@ -25,29 +25,27 @@ const GoogleMapContent: React.FC<LocationListProps>= ({data}) => {
 
       const ZOOM_LEVEL_FOR_SINGLE_MARKER = 10;
 
+          //fitMapToBounds will add all the markers in a single view.
 
       useEffect(() => {
         if (!map) return;
         if (data?.length > 0 && map) {
-          fitMapToBounds(data);
+            // fitMaptoBounds
+            const markers = data.map((location, index) => ({
+                key: index,
+                position: { lat: location.businessLocation.lat, lng: location.businessLocation.lng},
+              }));
+              if (markers.length > 0 && map) {
+                const bounds = new window.google.maps.LatLngBounds();
+                markers.forEach((marker) => bounds.extend(marker.position));
+                map.fitBounds(bounds, 250);
+                if(markers.length === 1){
+                  map.setZoom(ZOOM_LEVEL_FOR_SINGLE_MARKER);
+                }
+              }
         }
       }, [map, data]);
 
-    //fitMapToBounds will add all the markers in a single view.
-    const fitMapToBounds = (data: Location[]) => {
-      const markers = data.map((location, index) => ({
-        key: index,
-        position: { lat: location.businessLocation.lat, lng: location.businessLocation.lng},
-      }));
-      if (markers.length > 0 && map) {
-        const bounds = new window.google.maps.LatLngBounds();
-        markers.forEach((marker) => bounds.extend(marker.position));
-        map.fitBounds(bounds, 250);
-        if(markers.length === 1){
-          map.setZoom(ZOOM_LEVEL_FOR_SINGLE_MARKER);
-        }
-      }
-  };
 
     return (
     <Map
