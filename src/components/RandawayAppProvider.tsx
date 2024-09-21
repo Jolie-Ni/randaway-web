@@ -1,11 +1,7 @@
 import HomePage from './HomePage';
 
-
 const RandawayAppProvider = () => {
-
-    return (
-      <HomePage />
-    );
-}
+  return <HomePage />;
+};
 
 export default RandawayAppProvider;

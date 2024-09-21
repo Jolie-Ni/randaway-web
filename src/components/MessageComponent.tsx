@@ -3,10 +3,11 @@
 import React from 'react';
 import { useFetch } from '../hooks/useFetch';
 
-const GET_MESSAGE_ENDPOINT = "https://us-central1-randaway-web-97767.cloudfunctions.net/api/hello"
+const GET_MESSAGE_ENDPOINT =
+  'https://us-central1-randaway-web-97767.cloudfunctions.net/api/hello';
 
 interface Message {
-    message: string
+  message: string;
 }
 
 const MessageComponent: React.FC = () => {
@@ -23,11 +24,7 @@ const MessageComponent: React.FC = () => {
   return (
     <div>
       <h1>Data</h1>
-      {data && (
-        <ul>
-          {data.message}
-        </ul>
-      )}
+      {data && <ul>{data.message}</ul>}
     </div>
   );
 };

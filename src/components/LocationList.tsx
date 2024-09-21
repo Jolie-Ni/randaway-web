@@ -1,11 +1,15 @@
 import React from 'react';
-import { List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 import { LocationListProps } from '../types';
 import { Location } from '../types';
 
-
-const LocationList: React.FC<LocationListProps>= ({ data }) => {
-
+const LocationList: React.FC<LocationListProps> = ({ data }) => {
   return (
     <div>
       <Typography variant="h5" gutterBottom>
