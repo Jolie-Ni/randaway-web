@@ -1,11 +1,11 @@
-import Paper from '@mui/material/Paper';
-import GoogleMapBox from './GoogleMapBox';
-import { useFetch } from '../hooks/useFetch';
-import { Location } from '../types';
+import Paper from "@mui/material/Paper";
+import GoogleMapBox from "./GoogleMapBox";
+import useFetch from "../hooks/useFetch";
+import { Location } from "../types";
 
 const HomePage = () => {
   const GET_LOCATION_ENDPOINT =
-    'https://us-central1-randaway-web-97767.cloudfunctions.net/api/locations';
+    "https://us-central1-randaway-web-97767.cloudfunctions.net/api/locations";
 
   const { data, loading, error } = useFetch<Location[]>(GET_LOCATION_ENDPOINT); // Replace with your API URL
 
@@ -33,7 +33,7 @@ const HomePage = () => {
   }
 
   return (
-    <Paper sx={{ width: '100%' }}>
+    <Paper sx={{ width: "100%" }}>
       <GoogleMapBox data={data} />
     </Paper>
   );

@@ -1,5 +1,5 @@
-import './App.css';
-import RandawayAppProvider from './components/RandawayAppProvider';
+import "./App.css";
+import RandawayAppProvider from "./components/RandawayAppProvider";
 
 function App() {
   return (

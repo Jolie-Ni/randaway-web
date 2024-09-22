@@ -1,8 +1,8 @@
-import { APIProvider } from '@vis.gl/react-google-maps';
+import { APIProvider } from "@vis.gl/react-google-maps";
 
-import React from 'react';
-import { LocationListProps } from '../types';
-import GoogleMapContent from './GoogleMapContent';
+import React from "react";
+import { LocationListProps } from "../types";
+import GoogleMapContent from "./GoogleMapContent";
 
 const GoogleMapBox: React.FC<LocationListProps> = ({ data }) => {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -10,9 +10,9 @@ const GoogleMapBox: React.FC<LocationListProps> = ({ data }) => {
   return (
     <APIProvider
       apiKey={apiKey!}
-      onLoad={() => console.log('Maps API has loaded.')}
+      onLoad={() => console.log("Maps API has loaded.")}
     >
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapContent data={data} />
       </div>
     </APIProvider>

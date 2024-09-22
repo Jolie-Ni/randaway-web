@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { fetchDataFromApi } from '../services/fetchData';
+import { useState, useEffect } from "react";
+import { fetchDataFromApi } from "../services/fetchData";
 
 interface FetchResult<T> {
   data: T | null;
@@ -7,7 +7,7 @@ interface FetchResult<T> {
   error: string | null;
 }
 
-export const useFetch = <T>(url: string): FetchResult<T> => {
+const useFetch = <T>(url: string): FetchResult<T> => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,8 +18,8 @@ export const useFetch = <T>(url: string): FetchResult<T> => {
       try {
         const result = await fetchDataFromApi<T>(url);
         setData(result);
-      } catch (error) {
-        setError((error as Error).message || 'Error fetching data');
+      } catch (err) {
+        setError((err as Error).message || "Error fetching data");
       } finally {
         setLoading(false);
       }
@@ -30,3 +30,5 @@ export const useFetch = <T>(url: string): FetchResult<T> => {
 
   return { data, loading, error };
 };
+
+export default useFetch;

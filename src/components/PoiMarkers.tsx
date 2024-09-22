@@ -1,9 +1,13 @@
-import { Marker, MarkerClusterer } from '@googlemaps/markerclusterer';
-import { AdvancedMarker, Pin, useMap } from '@vis.gl/react-google-maps';
-import { useEffect, useRef, useState } from 'react';
-import { Location } from '../types';
+import { Marker, MarkerClusterer } from "@googlemaps/markerclusterer";
+import { AdvancedMarker, Pin, useMap } from "@vis.gl/react-google-maps";
+import { useEffect, useRef, useState } from "react";
+import { Location } from "../types";
 
-const PoiMarkers = (props: { pois: Location[] }) => {
+interface PoiMarkersProps {
+  pois: Location[];
+}
+
+const PoiMarkers: React.FC<PoiMarkersProps> = ({ pois }) => {
   const map = useMap();
 
   const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
@@ -29,27 +33,23 @@ const PoiMarkers = (props: { pois: Location[] }) => {
     setMarkers((prev) => {
       if (marker) {
         return { ...prev, [key]: marker };
-      } else {
-        const newMarkers = { ...prev };
-        delete newMarkers[key];
-        return newMarkers;
       }
+
+      const newMarkers = { ...prev };
+      delete newMarkers[key];
+      return newMarkers;
     });
   };
 
   return (
     <>
-      {props.pois.map((location: Location) => (
+      {pois.map((location: Location) => (
         <AdvancedMarker
           key={location.businessName}
           position={location.businessLocation}
           ref={(marker) => setMarkerRef(marker, location.businessName)}
         >
-          <Pin
-            background={'#FBBC04'}
-            glyphColor={'#000'}
-            borderColor={'#000'}
-          />
+          <Pin background="#FBBC04" glyphColor="#000" borderColor="#000" />
         </AdvancedMarker>
       ))}
     </>

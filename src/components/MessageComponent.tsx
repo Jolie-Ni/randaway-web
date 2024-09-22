@@ -1,10 +1,10 @@
 // src/components/DataDisplay.tsx
 
-import React from 'react';
-import { useFetch } from '../hooks/useFetch';
+import React from "react";
+import useFetch from "../hooks/useFetch";
 
 const GET_MESSAGE_ENDPOINT =
-  'https://us-central1-randaway-web-97767.cloudfunctions.net/api/hello';
+  "https://us-central1-randaway-web-97767.cloudfunctions.net/api/hello";
 
 interface Message {
   message: string;
