@@ -20,7 +20,7 @@ const LocationList: React.FC<LocationListProps> = ({ data }) => {
         right: 0,
       }}
     >
-      <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+      <Box sx={{ width: 600, bgcolor: "background.paper", mt: 8, mr: 8 }}>
         <Typography variant="h5" gutterBottom>
           Location List
         </Typography>
