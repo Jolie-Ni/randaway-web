@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   List,
   ListItem,
   ListItemButton,
@@ -19,18 +20,20 @@ const LocationList: React.FC<LocationListProps> = ({ data }) => {
         right: 0,
       }}
     >
-      <Typography variant="h5" gutterBottom>
-        Location List
-      </Typography>
-      <List>
-        {data?.map((item: Location) => (
-          <ListItem key={item.businessName}>
-            <ListItemButton>
-              <ListItemText primary={item.businessName} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        <Typography variant="h5" gutterBottom>
+          Location List
+        </Typography>
+        <List>
+          {data?.map((item: Location) => (
+            <ListItem key={item.businessName}>
+              <ListItemButton>
+                <ListItemText primary={item.businessName} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
     </div>
   );
 };
