@@ -22,12 +22,12 @@ if (isEmulator) {
   import("dotenv").then((dotenv) => dotenv.config());
 }
 
-const aws_access_key_id: string | undefined = isEmulator ?
-  process.env.AWS_ACCESS_KEY_ID :
-  functions.config().aws?.access_key_id;
-const aws_secret_access_key: string | undefined = isEmulator ?
-  process.env.AWS_SECRET_ACCESS_KEY :
-  functions.config().aws?.secret_access_key;
+const aws_access_key_id: string | undefined = isEmulator
+  ? process.env.AWS_ACCESS_KEY_ID
+  : functions.config().aws?.access_key_id;
+const aws_secret_access_key: string | undefined = isEmulator
+  ? process.env.AWS_SECRET_ACCESS_KEY
+  : functions.config().aws?.secret_access_key;
 
 // Configure AWS SDK for DynamoDB
 AWS.config.update({
@@ -45,7 +45,8 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 const getLocations = async () => {
   const params = {
     TableName: "instagram_locations",
-    ProjectionExpression: "businessName, businessAddress, businessLocation",
+    ProjectionExpression:
+      "instagram_id, request_id, businessName, businessAddress, businessLocation",
     FilterExpression: "isValid = :isValid",
     ExpressionAttributeValues: {
       ":isValid": true,
@@ -63,17 +64,59 @@ const getLocations = async () => {
       // If it's not an instance of Error, log the entire error object
       console.error(
         "Unknown error fetching data from DynamoDB:",
-        JSON.stringify(error)
+        JSON.stringify(error),
       );
       throw new Error(
-        "Could not fetch data from DynamoDB due to an unknown error."
+        "Could not fetch data from DynamoDB due to an unknown error.",
+      );
+    }
+  }
+};
+
+const deleteLocations = async (locationIds: string[]) => {
+  const updatePromises = locationIds.map((locationId) => {
+    const segs = locationId.split(":");
+
+    const params = {
+      TableName: "instagram_locations",
+      Key: {
+        instagram_id: segs[0],
+        request_id: segs[1],
+      },
+      UpdateExpression: "set deleted = :deleted",
+      ExpressionAttributeValues: {
+        ":deleted": true,
+      },
+    };
+
+    return dynamoDB.update(params).promise();
+  });
+
+  try {
+    const results = await Promise.all(updatePromises);
+    return results;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(
+        "Error during soft delete data from DynamoDB:",
+        error.message,
+      );
+      throw new Error(`Could not update data in DynamoDB: ${error.message}`);
+    } else {
+      // If it's not an instance of Error, log the entire error object
+      console.error(
+        "Unknown error update data in DynamoDB:",
+        JSON.stringify(error),
+      );
+      throw new Error(
+        "Could not update data in DynamoDB due to an unknown error.",
       );
     }
   }
 };
 
 // Use CORS middleware to allow cross-origin requests
-app.use(cors({origin: true}));
+app.use(cors({ origin: true }));
 
 // Use body-parser middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -91,15 +134,29 @@ app.get("/locations", async (req, res) => {
     res.json(result);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({message: error.message});
+      res.status(500).json({ message: error.message });
     } else {
-      res.status(500).json({message: "An unknown error occurred"});
+      res.status(500).json({ message: "An unknown error occurred" });
+    }
+  }
+});
+
+app.post("/locations", async (req, res) => {
+  try {
+    const { locationIds } = req.body;
+    const result = await deleteLocations(locationIds);
+    res.json(result);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "An unknown error occurred" });
     }
   }
 });
 
 app.get("/message", (req, res) => {
-  res.json({message: "Hello from nn's firebase function!"});
+  res.json({ message: "Hello from nn's firebase function!" });
 });
 
 // Export the Express app as a Firebase Cloud Function
