@@ -56,6 +56,7 @@ const GoogleMapContent: React.FC<LocationListProps> = ({ data }) => {
       mapId="52b86c7c533a5c28"
       defaultZoom={3}
       defaultCenter={{ lat: avgLat, lng: avgLng }}
+      // eslint-disable-next-line
       onCameraChanged={(ev: MapCameraChangedEvent) =>
         console.log(
           "camera changed:",

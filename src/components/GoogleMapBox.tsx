@@ -10,6 +10,7 @@ const GoogleMapBox: React.FC<LocationListProps> = ({ data }) => {
   return (
     <APIProvider
       apiKey={apiKey!}
+      // eslint-disable-next-line
       onLoad={() => console.log("Maps API has loaded.")}
     >
       <div style={{ height: "100vh", width: "100%" }}>
