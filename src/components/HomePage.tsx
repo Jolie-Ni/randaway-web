@@ -52,11 +52,11 @@ export default HomePage;
 // - calculate view point(done)
 // - calculate zoom level(done)
 
-// make list go to the right, staying on top of map
+// make list go to the right, staying on top of map(done)
 // make markers clickable
 // - click on markers, address bar goes bold
 // make address bar clickable
 // - click on address bar, marker goes bold
 // add delete button
-// - delete icon on address bar
+// - delete icon on address bar(done)
 // - backend function to soft delete a marker
