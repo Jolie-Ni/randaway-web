@@ -2,6 +2,7 @@ import Paper from "@mui/material/Paper";
 import GoogleMapBox from "./GoogleMapBox";
 import useFetch from "../hooks/useFetch";
 import { Location } from "../types";
+import LocationList from "./LocationList";
 
 const HomePage = () => {
   const GET_LOCATION_ENDPOINT =
@@ -35,6 +36,7 @@ const HomePage = () => {
   return (
     <Paper sx={{ width: "100%" }}>
       <GoogleMapBox data={data} />
+      <LocationList data={data} />
     </Paper>
   );
 };

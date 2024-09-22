@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.locationList {
+  position: fixed;
+  z-index: 2; /* Higher z-index means it's on top */
+}
+
+.googleMapBox {
+  position: relative;
+  z-index: 1; /* Lower z-index means it's below */
+}

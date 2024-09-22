@@ -1,23 +1,30 @@
-import React from 'react';
+import React from "react";
 import {
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   Typography,
-} from '@mui/material';
-import { LocationListProps } from '../types';
-import { Location } from '../types';
+} from "@mui/material";
+import { LocationListProps, Location } from "../types";
+import "../App.css";
 
 const LocationList: React.FC<LocationListProps> = ({ data }) => {
   return (
-    <div>
+    <div
+      style={{
+        position: "fixed",
+        zIndex: 2,
+        top: 0, // You can adjust the position
+        right: 0,
+      }}
+    >
       <Typography variant="h5" gutterBottom>
         Location List
       </Typography>
       <List>
-        {data?.map((item: Location, index: number) => (
-          <ListItem key={index}>
+        {data?.map((item: Location) => (
+          <ListItem key={item.businessName}>
             <ListItemButton>
               <ListItemText primary={item.businessName} />
             </ListItemButton>

@@ -1,14 +1,8 @@
 import "./App.css";
-import RandawayAppProvider from "./components/RandawayAppProvider";
+import HomePage from "./components/HomePage";
 
 function App() {
-  return (
-    // <div className="App">
-    //   <LocationList/>
-    // </div>
-
-    <RandawayAppProvider />
-  );
+  return <HomePage />;
 }
 
 export default App;
