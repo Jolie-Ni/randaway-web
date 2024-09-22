@@ -1,16 +1,23 @@
 import React from "react";
 import {
   Box,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   Typography,
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import { LocationListProps, Location } from "../types";
 import "../App.css";
 
 const LocationList: React.FC<LocationListProps> = ({ data }) => {
+  const deleteThisLocation = (item: Location) => {
+    // eslint-disable-next-line
+    console.log(`delete location: ${item.businessName}`);
+  };
+
   return (
     <div
       style={{
@@ -26,7 +33,18 @@ const LocationList: React.FC<LocationListProps> = ({ data }) => {
         </Typography>
         <List>
           {data?.map((item: Location) => (
-            <ListItem key={item.businessName}>
+            <ListItem
+              key={item.businessName}
+              secondaryAction={
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => deleteThisLocation(item)}
+                >
+                  <ClearIcon />
+                </IconButton>
+              }
+            >
               <ListItemButton>
                 <ListItemText primary={item.businessName} />
               </ListItemButton>
