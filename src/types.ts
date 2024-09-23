@@ -1,3 +1,5 @@
+import { Dispatch, ReactNode, SetStateAction } from "react";
+
 export interface Location {
   instagram_id: string;
   request_id: string;
@@ -17,4 +19,13 @@ export interface Poi {
 
 export interface DeleteRequest {
   locationIds: string[];
+}
+
+export interface RandawayContextType {
+  locations: Location[];
+  setLocations: Dispatch<SetStateAction<Location[]>>;
+}
+
+export interface ReactNodeProps {
+  children: ReactNode;
 }
