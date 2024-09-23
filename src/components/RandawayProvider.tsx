@@ -1,8 +1,7 @@
 import { createContext, useEffect, useState } from "react";
-import { RandawayContextType, ReactNodeProps } from "../types";
+import { RandawayContextType, ReactNodeProps, Location } from "../types";
 import { fetchDataFromApi } from "../services/fetchData";
 import { LOCATION_ENDPOINT } from "../constant";
-import { Location } from "../types";
 
 export const LocationsContext = createContext<RandawayContextType | undefined>(
   undefined,
