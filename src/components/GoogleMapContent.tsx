@@ -12,7 +12,7 @@ const GoogleMapContent: React.FC = () => {
     return <div>error getting locations</div>;
   }
 
-  const { locations, setLocations } = context;
+  const { locations } = context;
 
   // from latAndLngs we will get lat and lng of all locations
   const latAndLngs = locations?.map((location) => ({

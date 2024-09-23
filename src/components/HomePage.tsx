@@ -1,18 +1,12 @@
 import Paper from "@mui/material/Paper";
 import GoogleMapBox from "./GoogleMapBox";
-import useFetch from "../hooks/useFetch";
-import { Location } from "../types";
 import LocationList from "./LocationList";
-import { LOCATION_ENDPOINT } from "../constant";
-import { useContext } from "react";
-import { LocationsContext } from "./RandawayProvider";
 
 const HomePage = () => {
-
   return (
     <Paper sx={{ width: "100%" }}>
-      <GoogleMapBox/>
-      <LocationList/>
+      <GoogleMapBox />
+      <LocationList />
     </Paper>
   );
 };
@@ -36,3 +30,6 @@ export default HomePage;
 // add delete button
 // - delete icon on address bar(done)
 // - backend function to soft delete a marker(done)
+
+// setup pre-commit hooks, linter
+// setup functions + component linter together

@@ -4,9 +4,10 @@ import RandawayProvider from "./components/RandawayProvider";
 
 function App() {
   return (
-  <RandawayProvider>
-    <HomePage/>
-  </RandawayProvider>);
+    <RandawayProvider>
+      <HomePage />
+    </RandawayProvider>
+  );
 }
 
 export default App;
