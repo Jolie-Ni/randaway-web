@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Box,
   IconButton,
@@ -10,12 +10,13 @@ import {
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { LocationListProps, Location } from "../types";
+import { Location } from "../types";
 import "../App.css";
 import { LOCATION_ENDPOINT } from "../constant";
 import { postDatatoApi } from "../services/postData";
+import { LocationsContext } from "./RandawayProvider";
 
-const LocationList: React.FC<LocationListProps> = ({ data }) => {
+const LocationList: React.FC = () => {
   const deleteThisLocation = (item: Location) => {
     // eslint-disable-next-line
     console.log(`delete location: ${item.businessName}`);
@@ -29,6 +30,14 @@ const LocationList: React.FC<LocationListProps> = ({ data }) => {
       console.log((err as Error).message || "Error posting data");
     }
   };
+
+  const context = useContext(LocationsContext);
+
+  if (!context) {
+    return <div>error getting locations</div>;
+  }
+
+  const { locations, setLocations } = context;
 
   return (
     <div
@@ -44,7 +53,7 @@ const LocationList: React.FC<LocationListProps> = ({ data }) => {
           Location List
         </Typography>
         <List>
-          {data?.map((item: Location) => (
+          {locations?.map((item: Location) => (
             <ListItem
               key={item.businessName}
               secondaryAction={

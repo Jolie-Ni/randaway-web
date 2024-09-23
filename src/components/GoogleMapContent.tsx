@@ -1,13 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { MapCameraChangedEvent, Map, useMap } from "@vis.gl/react-google-maps";
 import PoiMarkers from "./PoiMarkers";
-import { LocationListProps } from "../types";
+import { LocationsContext } from "./RandawayProvider";
 
-const GoogleMapContent: React.FC<LocationListProps> = ({ data }) => {
+const GoogleMapContent: React.FC = () => {
   const map = useMap();
 
+  const context = useContext(LocationsContext);
+
+  if (!context) {
+    return <div>error getting locations</div>;
+  }
+
+  const { locations, setLocations } = context;
+
   // from latAndLngs we will get lat and lng of all locations
-  const latAndLngs = data?.map((location) => ({
+  const latAndLngs = locations?.map((location) => ({
     lat: location.businessLocation.lat,
     lng: location.businessLocation.lng,
   }));
@@ -31,9 +39,9 @@ const GoogleMapContent: React.FC<LocationListProps> = ({ data }) => {
 
   useEffect(() => {
     if (!map) return;
-    if (data?.length > 0 && map) {
+    if (locations?.length > 0 && map) {
       // fitMaptoBounds
-      const markers = data.map((location, index) => ({
+      const markers = locations.map((location, index) => ({
         key: index,
         position: {
           lat: location.businessLocation.lat,
@@ -49,7 +57,7 @@ const GoogleMapContent: React.FC<LocationListProps> = ({ data }) => {
         }
       }
     }
-  }, [map, data]);
+  }, [map, locations]);
 
   return (
     <Map
@@ -66,7 +74,7 @@ const GoogleMapContent: React.FC<LocationListProps> = ({ data }) => {
         )
       }
     >
-      <PoiMarkers pois={data} />
+      <PoiMarkers pois={locations} />
     </Map>
   );
 };

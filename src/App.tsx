@@ -1,8 +1,12 @@
 import "./App.css";
 import HomePage from "./components/HomePage";
+import RandawayProvider from "./components/RandawayProvider";
 
 function App() {
-  return <HomePage />;
+  return (
+  <RandawayProvider>
+    <HomePage/>
+  </RandawayProvider>);
 }
 
 export default App;

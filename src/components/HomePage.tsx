@@ -4,37 +4,15 @@ import useFetch from "../hooks/useFetch";
 import { Location } from "../types";
 import LocationList from "./LocationList";
 import { LOCATION_ENDPOINT } from "../constant";
+import { useContext } from "react";
+import { LocationsContext } from "./RandawayProvider";
 
 const HomePage = () => {
-  const { data, loading, error } = useFetch<Location[]>(LOCATION_ENDPOINT); // Replace with your API URL
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  // const Item = styled(Paper)(({ theme }) => ({
-  //     backgroundColor: '#fff',
-  //     ...theme.typography.body2,
-  //     padding: theme.spacing(1),
-  //     textAlign: 'center',
-  //     color: theme.palette.text.secondary,
-  //     ...theme.applyStyles('dark', {
-  //       backgroundColor: '#1A2027',
-  //     }),
-  //   }));
-
-  if (data == null) {
-    return <div>Enable to fetch data. Try again</div>;
-  }
 
   return (
     <Paper sx={{ width: "100%" }}>
-      <GoogleMapBox data={data} />
-      <LocationList data={data} />
+      <GoogleMapBox/>
+      <LocationList/>
     </Paper>
   );
 };
