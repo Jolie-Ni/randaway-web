@@ -58,7 +58,7 @@ const LocationList: React.FC<LocationListProps> = ({ data }) => {
               }
             >
               <ListItemButton>
-                <ListItemText primary={item.instagram_id} />
+                <ListItemText primary={item.businessName} />
               </ListItemButton>
             </ListItem>
           ))}

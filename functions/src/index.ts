@@ -22,12 +22,12 @@ if (isEmulator) {
   import("dotenv").then((dotenv) => dotenv.config());
 }
 
-const awsAccessKeyId: string | undefined = isEmulator ?
-  process.env.AWS_ACCESS_KEY_ID :
-  functions.config().aws?.access_key_id;
-const awsSecretAccessKey: string | undefined = isEmulator ?
-  process.env.AWS_SECRET_ACCESS_KEY :
-  functions.config().aws?.secret_access_key;
+const awsAccessKeyId: string | undefined = isEmulator
+  ? process.env.AWS_ACCESS_KEY_ID
+  : functions.config().aws?.access_key_id;
+const awsSecretAccessKey: string | undefined = isEmulator
+  ? process.env.AWS_SECRET_ACCESS_KEY
+  : functions.config().aws?.secret_access_key;
 
 // Configure AWS SDK for DynamoDB
 AWS.config.update({
@@ -47,9 +47,10 @@ const getLocations = async () => {
     TableName: "instagram_locations",
     ProjectionExpression:
       "instagram_id,request_id,businessName,businessAddress,businessLocation",
-    FilterExpression: "isValid = :isValid",
+    FilterExpression: "isValid = :isValid AND deleted <> :deleted",
     ExpressionAttributeValues: {
       ":isValid": true,
+      ":deleted": true,
     },
   };
 
@@ -116,7 +117,7 @@ const deleteLocations = async (locationIds: string[]) => {
 };
 
 // Use CORS middleware to allow cross-origin requests
-app.use(cors({origin: true}));
+app.use(cors({ origin: true }));
 
 // Use body-parser middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -134,29 +135,29 @@ app.get("/locations", async (req, res) => {
     res.json(result);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({message: error.message});
+      res.status(500).json({ message: error.message });
     } else {
-      res.status(500).json({message: "An unknown error occurred"});
+      res.status(500).json({ message: "An unknown error occurred" });
     }
   }
 });
 
 app.post("/locations", async (req, res) => {
   try {
-    const {locationIds} = req.body;
+    const { locationIds } = req.body;
     const result = await deleteLocations(locationIds);
     res.json(result);
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({message: error.message});
+      res.status(500).json({ message: error.message });
     } else {
-      res.status(500).json({message: "An unknown error occurred"});
+      res.status(500).json({ message: "An unknown error occurred" });
     }
   }
 });
 
 app.get("/message", (req, res) => {
-  res.json({message: "Hello from nn's firebase function!"});
+  res.json({ message: "Hello from nn's firebase function!" });
 });
 
 // Export the Express app as a Firebase Cloud Function
