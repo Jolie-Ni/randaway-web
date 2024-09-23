@@ -3,12 +3,10 @@ import GoogleMapBox from "./GoogleMapBox";
 import useFetch from "../hooks/useFetch";
 import { Location } from "../types";
 import LocationList from "./LocationList";
+import { LOCATION_ENDPOINT } from "../constant";
 
 const HomePage = () => {
-  const GET_LOCATION_ENDPOINT =
-    "https://us-central1-randaway-web-97767.cloudfunctions.net/api/locations";
-
-  const { data, loading, error } = useFetch<Location[]>(GET_LOCATION_ENDPOINT); // Replace with your API URL
+  const { data, loading, error } = useFetch<Location[]>(LOCATION_ENDPOINT); // Replace with your API URL
 
   if (loading) {
     return <div>Loading...</div>;
@@ -59,4 +57,4 @@ export default HomePage;
 // - click on address bar, marker goes bold
 // add delete button
 // - delete icon on address bar(done)
-// - backend function to soft delete a marker
+// - backend function to soft delete a marker(done)

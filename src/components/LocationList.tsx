@@ -9,13 +9,25 @@ import {
   Typography,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+
 import { LocationListProps, Location } from "../types";
 import "../App.css";
+import { LOCATION_ENDPOINT } from "../constant";
+import { postDatatoApi } from "../services/postData";
 
 const LocationList: React.FC<LocationListProps> = ({ data }) => {
   const deleteThisLocation = (item: Location) => {
     // eslint-disable-next-line
     console.log(`delete location: ${item.businessName}`);
+    const body = {
+      locationIds: [`${item.instagram_id}:${item.request_id}`],
+    };
+    try {
+      postDatatoApi(LOCATION_ENDPOINT, body);
+    } catch (err: unknown) {
+      // eslint-disable-next-line
+      console.log((err as Error).message || "Error posting data");
+    }
   };
 
   return (
@@ -46,7 +58,7 @@ const LocationList: React.FC<LocationListProps> = ({ data }) => {
               }
             >
               <ListItemButton>
-                <ListItemText primary={item.businessName} />
+                <ListItemText primary={item.instagram_id} />
               </ListItemButton>
             </ListItem>
           ))}
