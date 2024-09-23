@@ -15,22 +15,9 @@ import "../App.css";
 import { LOCATION_ENDPOINT } from "../constant";
 import { postDatatoApi } from "../services/postData";
 import { LocationsContext } from "./RandawayProvider";
+import { fetchDataFromApi } from "../services/fetchData";
 
 const LocationList: React.FC = () => {
-  const deleteThisLocation = (item: Location) => {
-    // eslint-disable-next-line
-    console.log(`delete location: ${item.businessName}`);
-    const body = {
-      locationIds: [`${item.instagram_id}:${item.request_id}`],
-    };
-    try {
-      postDatatoApi(LOCATION_ENDPOINT, body);
-    } catch (err: unknown) {
-      // eslint-disable-next-line
-      console.log((err as Error).message || "Error posting data");
-    }
-  };
-
   const context = useContext(LocationsContext);
 
   if (!context) {
@@ -38,6 +25,31 @@ const LocationList: React.FC = () => {
   }
 
   const { locations, setLocations } = context;
+
+  const deleteThisLocation = (item: Location) => {
+    // eslint-disable-next-line
+    console.log(`delete location: ${item.businessName}`);
+    const body = {
+      locationIds: [`${item.instagram_id}:${item.request_id}`],
+    };
+
+    const resetData = async () => {
+      try {
+        const res = await fetchDataFromApi<Location[]>(LOCATION_ENDPOINT);
+        setLocations(res);
+      } catch (err: unknown) {
+        console.log((err as Error)?.message || "error fetching locations");
+      }
+    };
+
+    try {
+      postDatatoApi(LOCATION_ENDPOINT, body);
+      resetData();
+    } catch (err: unknown) {
+      // eslint-disable-next-line
+      console.log((err as Error).message || "Error posting data");
+    }
+  };
 
   return (
     <div
