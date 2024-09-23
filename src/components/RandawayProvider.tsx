@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { RandawayContextType, ReactNodeProps, Location } from "../types";
 import { fetchDataFromApi } from "../services/fetchData";
 import { LOCATION_ENDPOINT } from "../constant";
@@ -18,7 +18,7 @@ const RandawayProvider: React.FC<ReactNodeProps> = ({ children }) => {
         const res = await fetchDataFromApi<Location[]>(LOCATION_ENDPOINT);
         setLocations(res);
       } catch (err) {
-        setError("Failed to fetch data");
+        setError((err as Error)?.message || "Failed to fetch data");
       } finally {
         setLoading(false); // Stop loading after the request completes
       }
@@ -35,8 +35,13 @@ const RandawayProvider: React.FC<ReactNodeProps> = ({ children }) => {
     return <div>Error: {error}</div>; // Display an error if fetching fails
   }
 
+  const providerValue = useMemo(
+    () => ({ locations, setLocations }),
+    [locations, setLocations],
+  );
+
   return (
-    <LocationsContext.Provider value={{ locations, setLocations }}>
+    <LocationsContext.Provider value={providerValue}>
       {children}
     </LocationsContext.Provider>
   );
