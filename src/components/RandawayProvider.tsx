@@ -27,6 +27,11 @@ const RandawayProvider: React.FC<ReactNodeProps> = ({ children }) => {
     fetchData();
   }, []);
 
+  const value = useMemo(
+    () => ({ locations, setLocations }),
+    [locations, setLocations],
+  );
+
   if (loading) {
     return <div>Loading...</div>; // Display a loading state
   }
@@ -35,13 +40,8 @@ const RandawayProvider: React.FC<ReactNodeProps> = ({ children }) => {
     return <div>Error: {error}</div>; // Display an error if fetching fails
   }
 
-  const providerValue = useMemo(
-    () => ({ locations, setLocations }),
-    [locations, setLocations],
-  );
-
   return (
-    <LocationsContext.Provider value={providerValue}>
+    <LocationsContext.Provider value={value}>
       {children}
     </LocationsContext.Provider>
   );
